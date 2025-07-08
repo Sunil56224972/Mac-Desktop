@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-200 -200 1600 1627" fill="none">
+    <rect x="0" y="0" width="1200" height="1227" rx="275" fill="#1f4f82" />
+    
+    <!-- Scale down and shift the entire group left so the 'un' and 'stop' are perfectly centered as one unit -->
+    <g transform="translate(600, 613.5) scale(0.72)">
+        <g transform="translate(-160, 0)">
+            <circle cx="-190" cy="0" r="240" fill="white" />
+            <text x="-190" y="90" text-anchor="middle" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-weight="900" font-size="280" fill="#1f4f82" letter-spacing="-8">un</text>
+            <text x="60" y="90" text-anchor="start" font-family="system-ui, -apple-system, Helvetica, sans-serif" font-weight="900" font-size="280" fill="white" letter-spacing="-8">stop</text>
+        </g>
+    </g>
+</svg>
