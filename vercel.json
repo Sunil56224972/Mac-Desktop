@@ -1,5 +1,16 @@
 {
   "outputDirectory": "public",
   "buildCommand": "",
-  "installCommand": ""
+  "installCommand": "",
+  "rewrites": [
+    {
+      "source": "/_next/image",
+      "has": [
+        { "type": "query", "key": "url", "value": "(?<encodedUrl>.+)" },
+        { "type": "query", "key": "w", "value": "(?<w>\\d+)" },
+        { "type": "query", "key": "q", "value": "(?<q>\\d+)" }
+      ],
+      "destination": "/_next/image/url=:encodedUrl&w=:w&q=:q"
+    }
+  ]
 }
