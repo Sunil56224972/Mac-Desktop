@@ -1,4 +1,39 @@
-﻿<!DOCTYPE html><html lang="en"><head><style>[data-desktop-container="true"] { display: none !important; }</style><script>
+<!DOCTYPE html><html lang="en"><head><style>[data-desktop-container="true"] { display: none !important; }</style><script>
+// Fix /_next/image URLs for static hosting — extract real src from url param
+(function() {
+  function fixImg(img) {
+    var src = img.getAttribute('src') || '';
+    if (src.indexOf('/_next/image') === 0) {
+      try {
+        var u = new URL(src, location.origin);
+        var real = u.searchParams.get('url');
+        if (real) { img.src = real; img.removeAttribute('srcset'); }
+      } catch(e) {}
+    }
+    // Also fix srcset
+    var ss = img.getAttribute('srcset') || '';
+    if (ss.indexOf('/_next/image') >= 0) { img.removeAttribute('srcset'); }
+  }
+  function fixAll() { document.querySelectorAll('img').forEach(fixImg); }
+  document.addEventListener('DOMContentLoaded', fixAll);
+  var mo = new MutationObserver(function(ms) {
+    ms.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.tagName === 'IMG') { fixImg(n); }
+        else if (n.querySelectorAll) { n.querySelectorAll('img').forEach(fixImg); }
+      });
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    mo.observe(document.body, { childList: true, subtree: true });
+    fixAll();
+  });
+  // Also run after a delay to catch late renders
+  setTimeout(fixAll, 500);
+  setTimeout(fixAll, 1500);
+  setTimeout(fixAll, 3000);
+})();
+</script><script>
   const randomizeContent = () => {
     document.querySelectorAll('img').forEach(img => {
       const src = img.getAttribute('src') || '';
