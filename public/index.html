@@ -1,0 +1,459 @@
+﻿<!DOCTYPE html><html lang="en"><head><style>[data-desktop-container="true"] { display: none !important; }</style><script>
+  const randomizeContent = () => {
+    document.querySelectorAll('img').forEach(img => {
+      const src = img.getAttribute('src') || '';
+      if (src.includes('firebasestorage') || src.includes('googleusercontent') || src.includes('gucduck.com')) {
+        // Only replace if we haven't already replaced it to prevent loops
+        if (!src.includes('picsum.photos')) {
+           img.setAttribute('src', 'https://picsum.photos/400/400?random=' + Math.random());
+           if (img.hasAttribute('srcset')) {
+             img.setAttribute('srcset', '');
+           }
+        }
+      }
+    });
+    
+    // Replace "gucduck" text with "Sunil"
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent.trim() === 'gucduck') {
+        btn.textContent = 'Sunil';
+      }
+    });
+    
+    // Hide all content inside Google Photos app
+    document.querySelectorAll('div.font-semibold.text-center').forEach(div => {
+      if (div.textContent.trim() === 'Google Photos') {
+        const windowContainer = div.closest('.bg-white.rounded-3xl.shadow-2xl');
+        if (windowContainer && windowContainer.children.length > 1) {
+          for (let i = 1; i < windowContainer.children.length; i++) {
+            windowContainer.children[i].style.setProperty('display', 'none', 'important');
+          }
+        }
+      }
+    });
+    
+    // Remove Civic app
+    document.querySelectorAll('button').forEach(btn => {
+      const text = btn.textContent.trim();
+      const label = btn.getAttribute('aria-label');
+      if (text === 'Civic' || text === 'Civie' || label === 'Civic' || label === 'Civie') {
+        btn.style.setProperty('display', 'none', 'important');
+      }
+    });
+
+    // Replace LinkedIn with X (Twitter)
+    document.querySelectorAll('button').forEach(btn => {
+      const textSpan = Array.from(btn.querySelectorAll('span')).find(s => s.textContent.trim() === 'LinkedIn');
+      if (textSpan || btn.getAttribute('aria-label') === 'LinkedIn') {
+        if (textSpan) textSpan.textContent = 'X (Twitter)';
+        btn.setAttribute('aria-label', 'X (Twitter)');
+        const img = btn.querySelector('img');
+        if (img && !img.src.includes('x_twitter_icon.svg')) {
+           img.setAttribute('src', '/x_twitter_icon.svg');
+           img.setAttribute('srcset', '');
+        }
+      }
+    });
+
+    // Replace Lime with Discord
+    document.querySelectorAll('button').forEach(btn => {
+      const textSpan = Array.from(btn.querySelectorAll('span')).find(s => s.textContent.trim() === 'Lime');
+      if (textSpan || btn.getAttribute('aria-label') === 'Lime') {
+        if (textSpan) textSpan.textContent = 'Discord';
+        btn.setAttribute('aria-label', 'Discord');
+        const img = btn.querySelector('img');
+        if (img && !img.src.includes('discord_icon.svg')) {
+           img.setAttribute('src', '/discord_icon.svg');
+           img.setAttribute('srcset', '');
+        }
+      }
+    });
+
+    // Replace TikTok with GitLab
+    document.querySelectorAll('button').forEach(btn => {
+      const textSpan = Array.from(btn.querySelectorAll('span')).find(s => s.textContent.trim() === 'TikTok');
+      if (textSpan || btn.getAttribute('aria-label') === 'TikTok') {
+        if (textSpan) textSpan.textContent = 'GitLab';
+        btn.setAttribute('aria-label', 'GitLab');
+        const img = btn.querySelector('img');
+        if (img && !img.src.includes('gitlab_icon.svg')) {
+           img.setAttribute('src', '/gitlab_icon.svg');
+           img.setAttribute('srcset', '');
+        }
+      }
+    });
+
+    // Replace TTF with Unstop
+    document.querySelectorAll('button').forEach(btn => {
+      const textSpan = Array.from(btn.querySelectorAll('span')).find(s => s.textContent.trim() === 'TTF');
+      if (textSpan || btn.getAttribute('aria-label') === 'TTF') {
+        if (textSpan) textSpan.textContent = 'Unstop';
+        btn.setAttribute('aria-label', 'Unstop');
+        const img = btn.querySelector('img');
+        if (img && !img.src.includes('unstop_icon.svg')) {
+           img.setAttribute('src', '/unstop_icon.svg');
+           img.setAttribute('srcset', '');
+        }
+      }
+    });
+
+    // Replace Stocks with Slack
+    document.querySelectorAll('button').forEach(btn => {
+      const textSpan = Array.from(btn.querySelectorAll('span')).find(s => s.textContent.trim() === 'Stocks');
+      if (textSpan || btn.getAttribute('aria-label') === 'Stocks') {
+        if (textSpan) textSpan.textContent = 'Slack';
+        btn.setAttribute('aria-label', 'Slack');
+        const img = btn.querySelector('img');
+        if (img && !img.src.includes('slack_icon.svg')) {
+           img.setAttribute('src', '/slack_icon.svg');
+           img.setAttribute('srcset', '');
+        }
+      }
+    });
+
+    // Replace Stellar Effects with Steam
+    document.querySelectorAll('button').forEach(btn => {
+      const textSpan = Array.from(btn.querySelectorAll('span')).find(s => s.textContent.trim() === 'Stellar Effects');
+      if (textSpan || btn.getAttribute('aria-label') === 'Stellar Effects') {
+        if (textSpan) textSpan.textContent = 'Steam';
+        btn.setAttribute('aria-label', 'Steam');
+        const img = btn.querySelector('img');
+        if (img && !img.src.includes('steam.png')) {
+           img.setAttribute('src', '/steam.png');
+           img.setAttribute('srcset', '');
+           img.style.transform = 'scale(1.35)';
+        }
+      }
+    });
+
+    // Remove specific old apps from the Applications list view (table)
+    document.querySelectorAll('.bg-white.rounded-3xl.shadow-2xl table tbody tr').forEach(tr => {
+      const text = tr.textContent;
+      if (text.includes('TikTok') || text.includes('Lime') || text.includes('Civie') || text.includes('Civic') || text.includes('Stocks') || text.includes('TTF') || text.includes('Stellar Effects') || text.includes('LinkedIn')) {
+        tr.style.setProperty('display', 'none', 'important');
+      }
+    });
+
+    // Hide all files in Desktop tab in Finder
+    // We detect the Desktop table by checking if it contains known Desktop files
+    document.querySelectorAll('.bg-white.rounded-3xl.shadow-2xl table').forEach(table => {
+      const text = table.textContent;
+      if (text.includes('cut button') || text.includes('linkedin interview') || text.includes('barbie filter') || text.includes('greeting cards') || text.includes('tour du mont blanc')) {
+        table.querySelectorAll('tbody tr').forEach(tr => {
+          tr.style.setProperty('display', 'none', 'important');
+        });
+      }
+    });
+
+    // Intercept Photos app clicks and show random photos in a custom window
+    document.querySelectorAll('a, button, div').forEach(el => {
+      const text = el.textContent.trim();
+      if (text === 'Photos' || text === 'Google Photos') {
+        const img = el.querySelector('img');
+        if (img && (img.src.includes('photos') || img.src.includes('google'))) {
+          // This looks like the Photos app
+          if (!el.dataset.interceptedPhotos) {
+             el.dataset.interceptedPhotos = "true";
+             if (el.tagName === 'A') {
+                el.removeAttribute('href');
+                el.removeAttribute('target');
+             }
+             el.addEventListener('click', (e) => {
+               e.preventDefault();
+               e.stopPropagation();
+               
+               let win = document.getElementById('custom-photos-window');
+               if (win) {
+                   win.style.display = 'flex';
+                   return;
+               }
+               win = document.createElement('div');
+               win.id = 'custom-photos-window';
+               win.style.cssText = 'position: fixed; top: 10%; left: 10%; width: 80%; height: 80%; background: #fff; z-index: 99999; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;';
+               
+               const titleBar = document.createElement('div');
+               titleBar.style.cssText = 'height: 40px; background: #f6f6f6; border-bottom: 1px solid #ddd; display: flex; align-items: center; padding: 0 16px; user-select: none; position: relative;';
+               
+               const btnContainer = document.createElement('div');
+               btnContainer.style.cssText = 'display: flex; align-items: center; position: absolute; left: 16px; z-index: 9999999; pointer-events: auto;';
+               
+               const closeBtn = document.createElement('div');
+               closeBtn.style.cssText = 'width: 14px; height: 14px; border-radius: 50%; background: #ff5f56; cursor: pointer; pointer-events: auto;';
+               closeBtn.onmousedown = (e) => { e.stopPropagation(); win.remove(); };
+               closeBtn.onclick = (e) => { e.stopPropagation(); win.remove(); };
+               
+               const yellowBtn = document.createElement('div');
+               yellowBtn.style.cssText = 'width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e; margin-left: 8px;';
+               
+               const greenBtn = document.createElement('div');
+               greenBtn.style.cssText = 'width: 12px; height: 12px; border-radius: 50%; background: #27c93f; margin-left: 8px;';
+               
+               btnContainer.appendChild(closeBtn);
+               btnContainer.appendChild(yellowBtn);
+               btnContainer.appendChild(greenBtn);
+               
+               const titleText = document.createElement('div');
+               titleText.style.cssText = 'width: 100%; text-align: center; font-weight: bold; color: #333; pointer-events: none;';
+               titleText.innerText = 'Photos';
+               
+               titleBar.appendChild(btnContainer);
+               titleBar.appendChild(titleText);
+               
+               const content = document.createElement('div');
+               content.style.cssText = 'flex: 1; padding: 20px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; background: #fff;';
+               
+               const overlay = document.createElement('div');
+               overlay.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; cursor: pointer; flex-direction: column;';
+               const overlayImg = document.createElement('img');
+               overlayImg.style.cssText = 'max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);';
+               overlay.appendChild(overlayImg);
+               
+               overlay.addEventListener('click', (ev) => {
+                   ev.stopPropagation();
+                   overlay.style.display = 'none';
+               });
+
+               for (let i = 0; i < 30; i++) {
+                  const imgEl = document.createElement('img');
+                  const randomUrl = 'https://picsum.photos/800/800?random=' + (Math.random());
+                  imgEl.src = randomUrl;
+                  imgEl.style.cssText = 'width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;';
+                  imgEl.onmouseover = () => imgEl.style.transform = 'scale(1.05)';
+                  imgEl.onmouseout = () => imgEl.style.transform = 'scale(1)';
+                  imgEl.addEventListener('click', (ev) => {
+                      ev.stopPropagation();
+                      overlayImg.src = randomUrl;
+                      overlay.style.display = 'flex';
+                  });
+                  content.appendChild(imgEl);
+               }
+               
+               win.appendChild(titleBar);
+               win.appendChild(content);
+               win.appendChild(overlay);
+               document.body.appendChild(win);
+             }, { capture: true });
+          }
+        }
+      }
+    });
+
+    // Update Instagram and Discord links (using capture phase to override React)
+    document.querySelectorAll('a, button, div').forEach(el => {
+      const label = el.getAttribute('aria-label');
+      const text = (el.textContent || '').trim();
+      
+      if (label === 'Instagram' || text === 'Instagram') {
+         if (!el.dataset.instaIntercepted) {
+             el.dataset.instaIntercepted = 'true';
+             el.addEventListener('click', function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 e.stopImmediatePropagation();
+                 window.open('https://www.instagram.com/kali_linux_user_/', '_blank');
+             }, { capture: true });
+         }
+      }
+      if (label === 'Discord' || text === 'Discord') {
+         if (!el.dataset.discordIntercepted) {
+             el.dataset.discordIntercepted = 'true';
+             el.addEventListener('click', function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 e.stopImmediatePropagation();
+                 window.open('https://discord.com/users/1012816654532620328', '_blank');
+             }, { capture: true });
+         }
+      }
+      if (label === 'GitLab' || text === 'GitLab' || label === 'Gitlab' || text === 'Gitlab') {
+         if (!el.dataset.gitlabIntercepted) {
+             el.dataset.gitlabIntercepted = 'true';
+             el.addEventListener('click', function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 e.stopImmediatePropagation();
+                 window.open('https://gitlab.com/Sunil56224972', '_blank');
+             }, { capture: true });
+         }
+      }
+      if (label === 'Slack' || text === 'Slack') {
+         if (!el.dataset.slackIntercepted) {
+             el.dataset.slackIntercepted = 'true';
+             el.addEventListener('click', function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 e.stopImmediatePropagation();
+                 window.open('https://wretchedlab.slack.com/team/U0B95EYJH4H', '_blank');
+             }, { capture: true });
+         }
+      }
+      if (label === 'Unstop' || text === 'Unstop') {
+         if (!el.dataset.unstopIntercepted) {
+             el.dataset.unstopIntercepted = 'true';
+             el.addEventListener('click', function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 e.stopImmediatePropagation();
+                 window.open('https://unstop.com/u/sunilaim90353', '_blank');
+             }, { capture: true });
+         }
+      }
+      if (label === 'Spotify' || text === 'Spotify') {
+         if (!el.dataset.spotifyIntercepted) {
+             el.dataset.spotifyIntercepted = 'true';
+             el.addEventListener('click', function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 e.stopImmediatePropagation();
+                 
+                 let win = document.getElementById('custom-spotify-window');
+                 if (win) {
+                     win.style.display = 'flex';
+                     return;
+                 }
+                 win = document.createElement('div');
+                 win.id = 'custom-spotify-window';
+                 win.style.cssText = 'position: fixed; top: 10%; left: 15%; width: 70%; height: 80%; background: #121212; z-index: 99999; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;';
+                 
+                 const titleBar = document.createElement('div');
+                 titleBar.style.cssText = 'height: 40px; background: #282828; border-bottom: 1px solid #000; display: flex; align-items: center; padding: 0 16px; user-select: none; position: relative;';
+                 
+                 const btnContainer = document.createElement('div');
+                 btnContainer.style.cssText = 'display: flex; align-items: center; position: absolute; left: 16px; z-index: 9999999; pointer-events: auto;';
+                 
+                 const closeBtn = document.createElement('div');
+                 closeBtn.style.cssText = 'width: 14px; height: 14px; border-radius: 50%; background: #ff5f56; cursor: pointer; pointer-events: auto;';
+                 closeBtn.onmousedown = (ev) => { ev.stopPropagation(); win.remove(); };
+                 closeBtn.onclick = (ev) => { ev.stopPropagation(); win.remove(); };
+                 
+                 const yellowBtn = document.createElement('div');
+                 yellowBtn.style.cssText = 'width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e; margin-left: 8px;';
+                 
+                 const greenBtn = document.createElement('div');
+                 greenBtn.style.cssText = 'width: 12px; height: 12px; border-radius: 50%; background: #27c93f; margin-left: 8px;';
+                 
+                 btnContainer.appendChild(closeBtn);
+                 btnContainer.appendChild(yellowBtn);
+                 btnContainer.appendChild(greenBtn);
+                 
+                 const titleText = document.createElement('div');
+                 titleText.style.cssText = 'width: 100%; text-align: center; font-weight: bold; color: #fff; pointer-events: none; font-size: 14px;';
+                 titleText.innerText = 'Spotify';
+                 
+                 titleBar.appendChild(btnContainer);
+                 titleBar.appendChild(titleText);
+                 
+                 const content = document.createElement('div');
+                 content.style.cssText = 'flex: 1; background: #121212; display: flex;';
+                 content.innerHTML = '<iframe style="border-radius:0px" src="https://open.spotify.com/embed/playlist/0ffZRF5xCoAIzToZc6fPnq?utm_source=generator&theme=0" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
+                 
+                 win.appendChild(titleBar);
+                 win.appendChild(content);
+                 document.body.appendChild(win);
+             }, { capture: true });
+         }
+      }
+    });
+
+    // Update menubar time to Indian Standard Time (IST)
+    const now = new Date();
+    const options = { 
+      timeZone: 'Asia/Kolkata', 
+      weekday: 'short', 
+      month: 'short', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: '2-digit', 
+      hour12: true 
+    };
+    
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', options).formatToParts(now);
+      let weekday = '', month = '', day = '', hour = '', minute = '', ampm = '';
+      for (const part of parts) {
+        if (part.type === 'weekday') weekday = part.value;
+        if (part.type === 'month') month = part.value;
+        if (part.type === 'day') day = part.value;
+        if (part.type === 'hour') hour = part.value;
+        if (part.type === 'minute') minute = part.value;
+        if (part.type === 'dayPeriod') ampm = part.value;
+      }
+      const formattedTime = `${weekday}, ${month} ${day} ${hour}:${minute} ${ampm}`;
+      const datePart = `${weekday}, ${month} ${day}`;
+      const timePart = `${hour}:${minute} ${ampm}`;
+      
+      document.querySelectorAll('*').forEach(el => {
+        if (el.childElementCount === 0 && el.textContent) {
+           const text = el.textContent.trim();
+           if (text.match(/^[A-Za-z]{3},\s*[A-Za-z]{3}\s*\d{1,2}$/i)) {
+             if (el.textContent !== datePart) el.textContent = datePart;
+           } else if (text.match(/^\d{1,2}:\d{2}\s*(AM|PM)$/i)) {
+             if (el.textContent !== timePart) el.textContent = timePart;
+           } else if (text.match(/^[A-Za-z]{3},\s*[A-Za-z]{3}\s*\d{1,2}.*\d{1,2}:\d{2}\s*(AM|PM)$/i)) {
+             if (el.textContent !== formattedTime) el.textContent = formattedTime;
+           }
+        }
+      });
+    } catch (e) {
+      // Ignore if Intl is not fully supported
+    }
+  };
+
+  // Intercept window.open to redirect links
+  if (typeof window !== 'undefined') {
+    const originalWindowOpen = window.open;
+    window.open = function(url, target, features) {
+      if (typeof url === 'string') {
+        if (url.includes('github.com/guchris')) {
+          url = 'https://github.com/Sunil56224972';
+        } else if (url.includes('linkedin.com')) {
+          url = 'https://x.com';
+        } else if (url.includes('instagram.com')) {
+          url = 'https://www.instagram.com/kali_linux_user_/';
+        } else if (url.includes('discord.com') || url.toLowerCase().includes('lime') || url.includes('li.me')) {
+          url = 'https://discord.com/users/1012816654532620328';
+        } else if (url.toLowerCase().includes('tiktok.com') || url.includes('gitlab.com')) {
+          url = 'https://gitlab.com/Sunil56224972';
+        } else if (url.toLowerCase().includes('ttf') || url.includes('unstop.com')) {
+          url = 'https://unstop.com/u/sunilaim90353';
+        } else if (url.toLowerCase().includes('stocks') || url.includes('finance') || url.includes('slack.com')) {
+          url = 'https://wretchedlab.slack.com/team/U0B95EYJH4H';
+        } else if (url.toLowerCase().includes('stellar')) {
+          url = 'https://store.steampowered.com';
+        }
+      }
+      return originalWindowOpen.call(window, url, target, features);
+    };
+  }
+  if (typeof window !== 'undefined') {
+    const observer = new MutationObserver(randomizeContent);
+    window.addEventListener('DOMContentLoaded', () => {
+      observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['src', 'srcset'] });
+      randomizeContent();
+    });
+  }
+</script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="preload" href="/_next/static/media/22a5144ee8d83bca-s.p.woff2" as="font" crossorigin="" type="font/woff2"><link rel="preload" href="/_next/static/media/f5271587012faf78-s.p.woff2" as="font" crossorigin="" type="font/woff2"><link rel="preload" as="image" href="/logo_white.svg"><link rel="stylesheet" href="_next/static/css/0744ad710a4467fc_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.css" data-precedence="next"><link rel="preload" as="script" fetchpriority="low" href="/_next/static/chunks/webpack-0c572e1266057a7c.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP"><script src="_next/static/chunks/4bd1b696-e22c11a51064c92d_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><script src="_next/static/chunks/517-6369eb620cf451fc_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><script src="_next/static/chunks/main-app-a849309caff0f7ba_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><script src="_next/static/chunks/814-51f8243a5a6d96ce_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><script src="_next/static/chunks/app/layout-f37ee9db6488e9ad_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><script src="_next/static/chunks/bc9e92e6-770cfaa29851ac0c_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><script src="_next/static/chunks/8-5894acde074cc87b_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><script src="_next/static/chunks/app/page-a8f25b1b35ffe58f_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><meta name="next-size-adjust" content=""><link rel="preload" href="/background.jpg" as="image"><title>Mac</title><meta name="description" content="Sunil's personal website. Waddle around and explore."><link rel="icon" href="logo.png"><link rel="apple-touch-icon" href="logo.png"><script src="_next/static/chunks/polyfills-42372ed130431b0a_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" nomodule=""></script>
+<script>
+setInterval(() => {
+    const els = document.querySelectorAll('*');
+    for (const el of els) {
+        if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+            if (el.textContent.includes("Sunil's Mac Desktop")) {
+                let container = el;
+                while(container && container.parentElement && container.parentElement.tagName !== 'BODY' && container.parentElement.innerText.includes('About Me')) {
+                    container = container.parentElement;
+                }
+                if (container && container.getAttribute('contenteditable') !== 'true') {
+                    container.contentEditable = 'true';
+                    container.style.outline = 'none';
+                    container.style.cursor = 'text';
+                    container.style.minHeight = '100%';
+                    container.style.width = '100%';
+                    container.addEventListener('mousedown', e => e.stopPropagation());
+                }
+            }
+        }
+    }
+}, 1000);
+</script>
+</head><body class="__variable_246ccd __variable_4c40f6 antialiased"><div class="fixed inset-0 overflow-hidden"><div class="fixed inset-0 bg-black z-[9999] flex items-center justify-center" aria-hidden="false"><div class="flex flex-col items-center gap-8"><img alt="Logo" width="100" height="100" decoding="async" data-nimg="1" class="object-contain" style="color:transparent" src="boot_logo.png"><div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Loading page" class="w-[300px] h-1 bg-white/20 rounded-full overflow-hidden"><div class="h-full bg-white rounded-full transition-all duration-300 ease-out" style="width:0%"></div></div></div></div><div class="opacity-0 pointer-events-none"><div class="fixed top-0 left-0 right-0 z-50" style="top:env(safe-area-inset-top, 0px)"><div class="flex items-center justify-between px-4 h-7"><div class="flex items-center gap-2"><button type="button" class="text-white text-xs font-bold hover:opacity-80 transition-opacity cursor-pointer">Sunil</button></div><div class="flex items-center gap-3 text-white text-xs"><button type="button" data-tour="hand-gesture" class="p-1.5 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 hover:bg-white/20 text-white/90" aria-label="Turn on hand gesture mode" aria-pressed="false" aria-disabled="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hand h-4 w-4" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg></button><span></span><span></span></div></div></div><div class="fixed inset-0 overflow-hidden"><div class="absolute inset-0 z-0"><img alt="Desktop background" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="background.jpg"><div class="absolute inset-0 bg-black/10"></div></div><div aria-hidden="true" data-tour="desktop" class="pointer-events-none absolute z-[5] top-[calc(1.75rem+1.5rem)] bottom-[calc(6rem+1.5rem)] right-6 sm:left-6 max-sm:left-[calc(6rem+1.5rem)]"></div><div class="relative z-10 w-full h-full pt-7 pb-24 sm:pb-24 pl-0 sm:pl-0" data-desktop-container="true"></div></div><div class="hidden sm:flex fixed left-0 right-0 bottom-4 z-[100] justify-center pointer-events-none"><div class="bg-white/10 backdrop-blur-xl border-t border-white/20 rounded-3xl shadow-2xl px-2 py-2 pointer-events-auto" data-tour="dock"><div class="flex flex-row items-center justify-center gap-1.5"><span class="contents"><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Finder"><div class="relative flex items-center justify-center"><img alt="Finder" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_finder.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_finder.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_finder.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Mail"><div class="relative flex items-center justify-center"><img alt="Mail" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_mail.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_mail.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_mail.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Notes"><div class="relative flex items-center justify-center"><img alt="Notes" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_notes.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_notes.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_notes.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Photos"><div class="relative flex items-center justify-center"><img alt="Photos" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_photos.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_photos.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_photos.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Music"><div class="relative flex items-center justify-center"><img alt="Music" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_music.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_music.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_music.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Terminal"><div class="relative flex items-center justify-center"><img alt="Terminal" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_terminal.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_terminal.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_terminal.png%26w%3D96%26q%3D75"></div></button></div></div><div class="w-px h-10 bg-white/40 mx-1" aria-hidden="true"></div></span><span class="contents"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Civie"><div class="relative flex items-center justify-center"><img alt="Civie" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl" style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_civie.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_civie.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_civie.png%26w%3D96%26q%3D75"></div></button></div><div class="w-px h-10 bg-white/40 mx-1" aria-hidden="true"></div></span><span class="contents"><div class="relative"><div class="relative"><button type="button" data-tour="apps-launcher" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Apps"><div class="relative flex items-center justify-center"><img alt="Apps" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_apps.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_apps.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_apps.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Trash"><div class="relative flex items-center justify-center"><img alt="Trash" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_trash.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_trash.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_trash.png%26w%3D96%26q%3D75"></div></button></div></div></span></div></div></div><div class="flex sm:hidden fixed left-4 top-1/2 -translate-y-1/2 z-50 pointer-events-none"><div class="bg-white/10 backdrop-blur-xl border-r border-white/20 rounded-3xl shadow-2xl px-1.5 py-3 pointer-events-auto" data-tour="dock"><div class="flex flex-col items-center justify-center gap-1.5"><span class="contents"><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Finder"><div class="relative flex items-center justify-center"><img alt="Finder" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_finder.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_finder.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_finder.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Mail"><div class="relative flex items-center justify-center"><img alt="Mail" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_mail.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_mail.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_mail.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Notes"><div class="relative flex items-center justify-center"><img alt="Notes" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_notes.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_notes.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_notes.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Photos"><div class="relative flex items-center justify-center"><img alt="Photos" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_photos.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_photos.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_photos.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Music"><div class="relative flex items-center justify-center"><img alt="Music" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_music.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_music.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_music.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Terminal"><div class="relative flex items-center justify-center"><img alt="Terminal" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_terminal.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_terminal.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_terminal.png%26w%3D96%26q%3D75"></div></button></div></div><div class="h-px w-10 bg-white/40 my-1" aria-hidden="true"></div></span><span class="contents"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Civie"><div class="relative flex items-center justify-center"><img alt="Civie" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl" style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_civie.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_civie.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_civie.png%26w%3D96%26q%3D75"></div></button></div><div class="h-px w-10 bg-white/40 my-1" aria-hidden="true"></div></span><span class="contents"><div class="relative"><div class="relative"><button type="button" data-tour="apps-launcher" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Apps"><div class="relative flex items-center justify-center"><img alt="Apps" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_apps.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_apps.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_apps.png%26w%3D96%26q%3D75"></div></button></div></div><div class="relative"><div class="relative"><button type="button" class="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-xl" aria-label="Trash"><div class="relative flex items-center justify-center"><img alt="Trash" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 rounded-2xl " style="color:transparent" srcset="_next/image/url%3D%252Fmenu%252Fapp_trash.png%26w%3D48%26q%3D75 1x, _next/image/url%3D%252Fmenu%252Fapp_trash.png%26w%3D96%26q%3D75 2x" src="_next/image/url%3D%252Fmenu%252Fapp_trash.png%26w%3D96%26q%3D75"></div></button></div></div></span></div></div></div></div></div><!--$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/$--><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section><script src="_next/static/chunks/webpack-0c572e1266057a7c_dpl%3Ddpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[5244,[],\"\"]\n3:I[3866,[],\"\"]\n4:I[4543,[\"814\",\"static/chunks/814-51f8243a5a6d96ce.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\",\"177\",\"static/chunks/app/layout-f37ee9db6488e9ad.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\"],\"Analytics\"]\n5:I[4010,[\"814\",\"static/chunks/814-51f8243a5a6d96ce.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\",\"177\",\"static/chunks/app/layout-f37ee9db6488e9ad.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\"],\"Toaster\"]\n6:I[7033,[],\"ClientPageRoot\"]\n7:I[9830,[\"992\",\"static/chunks/bc9e92e6-770cfaa29851ac0c.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\",\"814\",\"static/chunks/814-51f8243a5a6d96ce.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\",\"8\",\"static/chunks/8-5894acde074cc87b.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\",\"974\",\"static/chunks/app/page-a8f25b1b35ffe58f.js?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\"],\"default\"]\na:I[6213,[],\"OutletBoundary\"]\nc:I[6213,[],\"MetadataBoundary\"]\ne:I[6213,[],\"ViewportBoundary\"]\n10:I[4835,[],\"\"]\n:HL[\"/_next/static/media/22a5144ee8d83bca-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/f5271587012faf78-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/css/0744ad710a4467fc.css?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"DdF5ZxF-OTIW0imkmrhtG\",\"p\":\"\",\"c\":[\"\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/0744ad710a4467fc.css?dpl=dpl_B8MoP8qs9GsmkfkYyyMNBmzrLLNP\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"link\",null,{\"rel\":\"preload\",\"href\":\"/background.jpg\",\"as\":\"image\"}]}],[\"$\",\"body\",null,{\"className\":\"__variable_246ccd __variable_4c40f6 antialiased\",\"children\":[[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[],[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}],[\"$\",\"$L4\",null,{}],[\"$\",\"$L5\",null,{}]]}]]}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"$L6\",null,{\"Component\":\"$7\",\"searchParams\":{},\"params\":{},\"promises\":[\"$@8\",\"$@9\"]}],null,[\"$\",\"$La\",null,{\"children\":\"$Lb\"}]]}],{},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"q6y8w1cUoCn8f9o7uws7O\",{\"children\":[[\"$\",\"$Lc\",null,{\"children\":\"$Ld\"}],[\"$\",\"$Le\",null,{\"children\":\"$Lf\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$10\",\"$undefined\"],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"8:{}\n9:{}\n"])</script><script>self.__next_f.push([1,"f:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1, viewport-fit=cover\"}]]\nd:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"Mac\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Sunil's personal website. Waddle around and explore.\"}],[\"$\",\"link\",\"3\",{\"rel\":\"icon\",\"href\":\"/logo.png\"}],[\"$\",\"link\",\"4\",{\"rel\":\"apple-touch-icon\",\"href\":\"/logo.png\"}]]\n"])</script><script>self.__next_f.push([1,"b:null\n"])</script></body></html>
