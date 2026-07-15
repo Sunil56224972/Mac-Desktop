@@ -1,4 +1,70 @@
-<!DOCTYPE html><html lang="en"><head><style>[data-desktop-container="true"] { display: none !important; }</style><script>
+<!DOCTYPE html><html lang="en"><head>
+<style>
+[data-desktop-container="true"] { display: none !important; }
+
+/* Slow down the boot progress bar transition so it feels like a real Mac boot */
+[role="progressbar"] > div {
+  transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+/* Make the loading screen fade-out animation slower */
+@keyframes loading-screen-fade-out {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.03); }
+}
+.loading-screen-exit {
+  animation: loading-screen-fade-out 0.8s ease-out forwards !important;
+}
+</style>
+<script>
+// ===== APPLE BOOT SOUND =====
+(function() {
+  var soundPlayed = false;
+  function playBootSound() {
+    if (soundPlayed) return;
+    soundPlayed = true;
+    try {
+      var audio = new Audio('/boot.mp3');
+      audio.volume = 0.7;
+      audio.play().catch(function() {
+        // Auto-play blocked by browser — retry on first user interaction
+        var retry = function() {
+          audio.play().catch(function(){});
+          document.removeEventListener('click', retry);
+          document.removeEventListener('touchstart', retry);
+          document.removeEventListener('keydown', retry);
+        };
+        document.addEventListener('click', retry, {once:true});
+        document.addEventListener('touchstart', retry, {once:true});
+        document.addEventListener('keydown', retry, {once:true});
+      });
+    } catch(e) {}
+  }
+  // Play as early as possible
+  document.addEventListener('DOMContentLoaded', playBootSound);
+  // Fallback: try immediately
+  if (document.readyState !== 'loading') { playBootSound(); }
+})();
+
+// ===== SLOW DOWN BOOT PROGRESS =====
+// Intercept the boot screen progress bar and make it take ~5 seconds
+(function() {
+  var origSet = Object.getOwnPropertyDescriptor(Element.prototype, 'style');
+  // Use MutationObserver to watch for the progress bar and slow it down
+  var bootObserver;
+  function slowDownBoot() {
+    var bar = document.querySelector('[role="progressbar"] > div');
+    if (!bar) return;
+    // Found the progress bar — make transitions longer
+    bar.style.setProperty('transition', 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)', 'important');
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    bootObserver = new MutationObserver(function() { slowDownBoot(); });
+    bootObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+    slowDownBoot();
+  });
+})();
+</script><script>
 // Fix /_next/image URLs for static hosting — extract real src from url param
 (function() {
   function fixImg(img) {
